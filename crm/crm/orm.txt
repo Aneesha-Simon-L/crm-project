@@ -1,0 +1,6 @@
+orm query
+
+model students
+
+students.objects.create(first_name='Aneesha',last_name='Simon L',adm_number='100125',course='PY-DJANGO',district='Thiruvananthapuram')
+
