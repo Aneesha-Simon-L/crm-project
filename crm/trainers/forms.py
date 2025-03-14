@@ -1,6 +1,6 @@
 from django import forms
 
-from . models import StudentsView, DistrictChoices,CourseChoices,BatchChoices,TrainerChoices
+from . models import Trainers, DistrictChoices
 
 from batches.models import Batches
 
@@ -8,11 +8,11 @@ from courses.models import  Courses
 
 from trainers.models import Trainers
 
-class StudentsRegisterForm(forms.ModelForm):
+class TrainersRegisterForm(forms.ModelForm):
 
     class Meta:
 
-        model = StudentsView 
+        model = Trainers 
 
         # fields = ['first_name','last_name','photo','email','contact_num','house_name',
         #       'post_office','district','pincode','course','batch','batch_date','trainer_name']
@@ -21,7 +21,7 @@ class StudentsRegisterForm(forms.ModelForm):
 
         # fields = '__all__'
 
-        exclude = ['adm_number','join_date','uuid','active_status','profile']
+        exclude = ['employee_id','uuid','active_status','profile']
 
         widgets = {'first_name' : forms.TextInput(attrs={'class' : 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
                                                          'placeholder' : 'Enter first name', 
@@ -34,7 +34,7 @@ class StudentsRegisterForm(forms.ModelForm):
                     'email' : forms.EmailInput(attrs={'class' : 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
                                                                     'placeholder' : 'Enter email', 
                                                                     'required' :'required'}),
-                    'contact_num' : forms.TextInput(attrs={'class' : 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
+                    'contact' : forms.TextInput(attrs={'class' : 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
                                                                     'placeholder' : 'Enter contact number', 
                                                                     'required' :'required'}),
                     'house_name' : forms.TextInput(attrs={'class' : 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
@@ -46,6 +46,15 @@ class StudentsRegisterForm(forms.ModelForm):
                     'pincode' : forms.TextInput(attrs={'class' : 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
                                                                     'placeholder' : 'Enter pincode', 
                                                                     'required' :'required'}),
+                    'qualification' : forms.TextInput(attrs={'class' : 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
+                                                                    'placeholder' : 'Enter qualification', 
+                                                                    'required' :'required'}),
+                    'stream' : forms.TextInput(attrs={'class' : 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
+                                                                    'placeholder' : 'Enter stream', 
+                                                                    'required' :'required'}),
+                    'id_proof' : forms.FileInput(attrs={'class' : 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
+                                                                   'required' :'required'}),
+
                     # 'batch_date' : forms.DateInput(attrs={'class' : 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
                     #                                                 'placeholder' : 'Enter batch date', 
                     #                                                 'type':'date',
@@ -55,10 +64,7 @@ class StudentsRegisterForm(forms.ModelForm):
     district = forms.ChoiceField(choices=DistrictChoices.choices,widget=forms.Select(attrs={
                                                                                     'class' : 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray',
                                                                                     'required' : 'required'}))
-    # course = forms.ChoiceField(choices=CourseChoices.choices,widget=forms.Select(attrs={
-    #                                                                                 'class' : 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray',
-    #                                                                                 'required' : 'required'}))
-
+    
     course = forms.ModelChoiceField(queryset=Courses.objects.all(),widget=forms.Select(attrs={
                                                                                          'class' : 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray',
                                                                                          'required' : 'required'}))
@@ -67,17 +73,17 @@ class StudentsRegisterForm(forms.ModelForm):
     #                                                                                 'class' : 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray',
     #                                                                                 'required' : 'required'}))
 
-    batch = forms.ModelChoiceField(queryset=Batches.objects.all(),widget=forms.Select(attrs={
-                                                                                         'class' : 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray',
-                                                                                         'required' : 'required'}))
+    # batch = forms.ModelChoiceField(queryset=Batches.objects.all(),widget=forms.Select(attrs={
+    #                                                                                      'class' : 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray',
+    #                                                                                      'required' : 'required'}))
 
     # trainer_name = forms.ChoiceField(choices=TrainerChoices.choices,widget=forms.Select(attrs={
     #                                                                                 'class' : 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray',
     #                                                                                 'required' : 'required'}))
 
-    trainer = forms.ModelChoiceField(queryset=Trainers.objects.all(),widget=forms.Select(attrs={
-                                                                                         'class' : 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray',
-                                                                                         'required' : 'required'}))
+    # trainer = forms.ModelChoiceField(queryset=Trainers.objects.all(),widget=forms.Select(attrs={
+    #                                                                                      'class' : 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray',
+    #                                                                                      'required' : 'required'}))
     
     def clean(self):
 
@@ -87,7 +93,7 @@ class StudentsRegisterForm(forms.ModelForm):
 
         email = cleaned_data.get('email')
 
-        # if StudentsView.objects.filter(profile__username = email).exists():
+        # if Trainers.objects.filter(profile__username = email).exists():
 
         #     self.add_error('email','This email is already registered. Please change email')
 
@@ -99,7 +105,7 @@ class StudentsRegisterForm(forms.ModelForm):
     
     def __init__(self,*args,**kwargs):
 
-        super(StudentsRegisterForm,self).__init__(*args,**kwargs)
+        super(TrainersRegisterForm,self).__init__(*args,**kwargs)
 
         if not self.instance:
 

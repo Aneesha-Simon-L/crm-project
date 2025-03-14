@@ -26,9 +26,13 @@ urlpatterns = [
 
     path('students/',include('students.urls')),
 
-    path('',include('authentication.urls')),
+    path('recordings/',include('recordings.urls')),
 
-    path('recordings/',include('recordings.urls'))
+    path('trainers/',include('trainers.urls')),
+
+    path('payments/',include('payments.urls')),
+
+    path('',include('authentication.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

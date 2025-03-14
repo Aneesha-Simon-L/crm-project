@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'authentication',
     'recordings',
     'academic_counsellors',
+    'payments',
 ]
 
 MIDDLEWARE = [
@@ -145,4 +146,33 @@ MEDIA_URL = '/media/'
 # to set a custom user model
 
 AUTH_USER_MODEL = 'authentication.Profile'
+
+
+
+
+# RBELHr2W = sona password (student)
+
+# ltlCPwxF = lakshitha (student)
+
+# viwlnW53 = chris@gmail.com (trainer)
+
+# password123 - trainer@mailinator.com  [tony password] (trainer)
+
+# email settings 
+
+# order_id = order_Q3oGF2EEEUkv7J 500
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True 
+
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+
 

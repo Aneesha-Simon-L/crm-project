@@ -130,8 +130,6 @@ class StudentsView(BaseClass):
 
     adm_number = models.CharField(max_length=50)
 
-    # course = models.CharField(max_length=25,choices=CourseChoices.choices) #,default=CourseChoices.PY_DJANGO)
-
     course = models.ForeignKey('courses.Courses',null=True,on_delete=models.SET_NULL)
 
     # batch = models.CharField(max_length=25,choices=BatchChoices.choices)
