@@ -98,11 +98,11 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('NAME')
-        'USER': config('USER')
-        'PASSWORD': config('PASSWORD')
-        'HOST': config('HOST')
-        'PORT':'3306',}
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
+        'PORT':'3306'}
 }
 
 
